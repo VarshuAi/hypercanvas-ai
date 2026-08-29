@@ -1,0 +1,242 @@
+import { CanvasElement } from '../types/canvas';
+
+export function generateDiagramFromPrompt(prompt: string): CanvasElement[] {
+  const p = prompt.toLowerCase();
+
+  if (p.includes('oauth') || p.includes('auth') || p.includes('login')) {
+    return [
+      {
+        id: 'node-user',
+        type: 'circle',
+        x: 120,
+        y: 220,
+        width: 100,
+        height: 100,
+        text: '👤 User / Client',
+        fillColor: '#1e293b',
+        strokeColor: '#38bdf8',
+        strokeWidth: 2,
+        textColor: '#e0f2fe',
+        fontSize: 12
+      },
+      {
+        id: 'node-app',
+        type: 'rectangle',
+        x: 340,
+        y: 230,
+        width: 170,
+        height: 80,
+        text: '🌐 Single Page App\\n(Frontend)',
+        fillColor: '#1e1b4b',
+        strokeColor: '#818cf8',
+        strokeWidth: 2,
+        textColor: '#e0e7ff',
+        fontSize: 12
+      },
+      {
+        id: 'node-auth-server',
+        type: 'rectangle',
+        x: 620,
+        y: 230,
+        width: 190,
+        height: 80,
+        text: '🔐 OAuth2 Identity Provider\\n(Auth0 / Supabase)',
+        fillColor: '#312e81',
+        strokeColor: '#a855f7',
+        strokeWidth: 2,
+        textColor: '#f3e8ff',
+        fontSize: 12
+      },
+      {
+        id: 'node-api',
+        type: 'rectangle',
+        x: 910,
+        y: 230,
+        width: 180,
+        height: 80,
+        text: '⚡ Protected Resource API\\n(FastAPI / GraphQL)',
+        fillColor: '#064e3b',
+        strokeColor: '#10b981',
+        strokeWidth: 2,
+        textColor: '#d1fae5',
+        fontSize: 12
+      },
+      {
+        id: 'conn-1',
+        type: 'connector',
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
+        fromId: 'node-user',
+        toId: 'node-app',
+        strokeColor: '#38bdf8',
+        strokeWidth: 2,
+        arrowEnd: true,
+        connectorStyle: 'bezier',
+        text: '1. Initiate Login'
+      },
+      {
+        id: 'conn-2',
+        type: 'connector',
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
+        fromId: 'node-app',
+        toId: 'node-auth-server',
+        strokeColor: '#a855f7',
+        strokeWidth: 2,
+        arrowEnd: true,
+        connectorStyle: 'bezier',
+        text: '2. PKCE Challenge'
+      },
+      {
+        id: 'conn-3',
+        type: 'connector',
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
+        fromId: 'node-auth-server',
+        toId: 'node-api',
+        strokeColor: '#10b981',
+        strokeWidth: 2,
+        arrowEnd: true,
+        connectorStyle: 'bezier',
+        text: '3. Bearer Token Verify'
+      }
+    ];
+  }
+
+  return [
+    {
+      id: 'node-query',
+      type: 'circle',
+      x: 100,
+      y: 240,
+      width: 100,
+      height: 100,
+      text: '💬 User Query',
+      fillColor: '#1e293b',
+      strokeColor: '#38bdf8',
+      strokeWidth: 2,
+      textColor: '#e0f2fe',
+      fontSize: 12
+    },
+    {
+      id: 'node-embed',
+      type: 'rectangle',
+      x: 300,
+      y: 250,
+      width: 170,
+      height: 80,
+      text: '🧠 Vector Embedder\\n(text-embedding-3)',
+      fillColor: '#1e1b4b',
+      strokeColor: '#818cf8',
+      strokeWidth: 2,
+      textColor: '#e0e7ff',
+      fontSize: 12
+    },
+    {
+      id: 'node-vdb',
+      type: 'diamond',
+      x: 570,
+      y: 220,
+      width: 150,
+      height: 130,
+      text: '🗄️ Vector DB\\n(Qdrant / Pinecone)',
+      fillColor: '#451a03',
+      strokeColor: '#f97316',
+      strokeWidth: 2,
+      textColor: '#ffedd5',
+      fontSize: 12
+    },
+    {
+      id: 'node-llm',
+      type: 'rectangle',
+      x: 830,
+      y: 250,
+      width: 180,
+      height: 80,
+      text: '🤖 LLM Reasoning Engine\\n(Claude 3.7 / Gemini 2.5)',
+      fillColor: '#064e3b',
+      strokeColor: '#10b981',
+      strokeWidth: 2,
+      textColor: '#d1fae5',
+      fontSize: 12
+    },
+    {
+      id: 'node-response',
+      type: 'rectangle',
+      x: 1110,
+      y: 250,
+      width: 170,
+      height: 80,
+      text: '✨ Synthesized Answer\\n(with Citations)',
+      fillColor: '#312e81',
+      strokeColor: '#c084fc',
+      strokeWidth: 2,
+      textColor: '#faf5ff',
+      fontSize: 12
+    },
+    {
+      id: 'conn-1',
+      type: 'connector',
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0,
+      fromId: 'node-query',
+      toId: 'node-embed',
+      strokeColor: '#38bdf8',
+      strokeWidth: 2,
+      arrowEnd: true,
+      connectorStyle: 'bezier'
+    },
+    {
+      id: 'conn-2',
+      type: 'connector',
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0,
+      fromId: 'node-embed',
+      toId: 'node-vdb',
+      strokeColor: '#818cf8',
+      strokeWidth: 2,
+      arrowEnd: true,
+      connectorStyle: 'bezier',
+      text: 'Cosine Search'
+    },
+    {
+      id: 'conn-3',
+      type: 'connector',
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0,
+      fromId: 'node-vdb',
+      toId: 'node-llm',
+      strokeColor: '#f97316',
+      strokeWidth: 2,
+      arrowEnd: true,
+      connectorStyle: 'bezier',
+      text: 'Context Chunks'
+    },
+    {
+      id: 'conn-4',
+      type: 'connector',
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0,
+      fromId: 'node-llm',
+      toId: 'node-response',
+      strokeColor: '#10b981',
+      strokeWidth: 2,
+      arrowEnd: true,
+      connectorStyle: 'bezier'
+    }
+  ];
+}
