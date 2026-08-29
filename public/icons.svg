@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <defs>
+    <linearGradient id="hc-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+  </defs>
+  <rect width="500" height="500" rx="100" fill="#090d18" />
+  <circle cx="180" cy="180" r="70" fill="url(#hc-grad)" opacity="0.9" />
+  <rect x="250" y="220" width="160" height="120" rx="24" fill="#10b981" opacity="0.85" />
+  <path d="M180 250 L250 280" stroke="#ffffff" stroke-width="8" stroke-dasharray="12 8" stroke-linecap="round" />
+</svg>
